@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELA MYP-DP Daily Log - Single File</title>
+  <script>
+const sessionSubjectMap = {
+  "MYP 1 Omega": {
+    "MON": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Guitar/Keyboard/Vocal"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Maths"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "INS"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "SDG/Wellness"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "VA( Sem 1) PA (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LA\nFrench Phase 1 - MYP 1 Omega\nFrench Phase 2 - MYP 1 Delta\nHindi Phase 1 - R6\nHindi Phase 2 - R4"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "LA\nFrench Phase 1 - MYP 1 Omega\nFrench Phase 2 - MYP 1 Delta\nHindi Phase 1 - R6\nHindi Phase 2 - R4"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "PHE"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LL"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "INS"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Integrated Sciences"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "VA( Sem 1) PA (Sem 2)"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Karate/Silambam"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "INS"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Maths"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LL"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "PD( Sem 1) DD (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Integrated Sciences"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "PD( Sem 1) DD (Sem 2)"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LA\nFrench Phase 1 - MYP 1 Omega\nFrench Phase 2 - MYP 1 Delta\nHindi Phase 1 - R6\nHindi Phase 2 - R4"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LL"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "PHE"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Integrated Sciences"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LIBRARY"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Robotics/Chess/Coding"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "PHE"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "VA( Sem 1) PA (Sem 2)"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Maths"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "PD( Sem 1) DD (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "CLUB"
+      }
+    }
+  },
+  "MYP 1 Delta": {
+    "MON": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Guitar/Keyboard/Vocal"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Maths"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Integrated Sciences"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "SDG/Wellness"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "PA (Sem1)/VA (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LA\nFrench Phase 1 - MYP 1 Omega\nFrench Phase 2 - MYP 1 Delta\nHindi Phase 1 - R6\nHindi Phase 2 - R4"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "LA\nFrench Phase 1 - MYP 1 Omega\nFrench Phase 2 - MYP 1 Delta\nHindi Phase 1 - R6\nHindi Phase 2 - R4"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LL"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "PHE"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LIBRARY"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "INS"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "PA (Sem1)/VA (Sem 2)"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Karate/Silambam"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "PHE"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "INS"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Integrated Sciences"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LL"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LA\nFrench Phase 1 - MYP 1 Omega\nFrench Phase 2 - MYP 1 Delta\nHindi Phase 1 - R6\nHindi Phase 2 - R4"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LL"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "PHE"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "INS"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Maths"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Robotics/Chess/Coding"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Maths"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "PA (Sem1)/VA (Sem 2)"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Integrated Sciences"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "CLUB"
+      }
+    }
+  },
+  "MYP 2": {
+    "MON": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Guitar/Keyboard/Vocal"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "INS"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "SDG/Wellness"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "LA\nFrench Phase 3 - MYP2\nFrench Phase 4 -  R6\nHindi Phase 3 - R5\nHindi Phase 4 - R4"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LIBRARY"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "VA (Sem1)/PA (Sem 2)"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "INS"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Maths"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "LL"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "PHE"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Karate/Silambam"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "VA (Sem1)/PA (Sem 2)"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LA\nFrench Phase 3 - MYP2\nFrench Phase 4 -  R6\nHindi Phase 3 - R5\nHindi Phase 4 - R4"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LL"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Maths"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Integrated Sciences"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "INS"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "PHE"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Maths"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "VA (Sem1)/PA (Sem 2)"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Integrated Sciences"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Robotics/Chess/Coding"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LA\nFrench Phase 3 - MYP2\nFrench Phase 4 -  R6\nHindi Phase 3 - R5\nHindi Phase 4 - R4"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LL"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "PHE"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Integrated Sciences"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "CLUB"
+      }
+    }
+  },
+  "MYP 3": {
+    "MON": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Robotics/Chess/Coding"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LA\nFrench Phase 3 - MYP3\nFrench Phase 4 -  R6\nHindi Phase 3 - R5\nHindi Phase 4 - R4"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Maths"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "VA (Sem1)/PA (Sem 2)"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "PHE"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LL"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "PHE"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Integrated Sciences"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "INS"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "LA\nFrench Phase 3 - MYP3\nFrench Phase 4 -  R6\nHindi Phase 3 - R5\nHindi Phase 4 - R4"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "SDG/Wellness"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Guitar/Keyboard/Vocal"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "INS"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "VA (Sem1)/PA (Sem 2)"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Integrated Sciences"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Maths"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "LA\nFrench Phase 3 - MYP3\nFrench Phase 4 -  R6\nHindi Phase 3 - R5\nHindi Phase 4 - R4"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Integrated Sciences"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Maths"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "INS"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "VA (Sem1)/PA (Sem 2)"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "LL"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Karate/Silambam"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LL"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "DD( Sem 1) PD (Sem 2)"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LIBRARY"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "PHE"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "CLUB"
+      }
+    }
+  },
+  "MYP 4": {
+    "MON": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Robotics/Chess/Coding"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Physics"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "E-portfolio"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LA\nFrench MYP 4\nHindi R6"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Biology"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Ext Maths"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Chemistry"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "INS"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LL"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Physics"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Ext Maths"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "SDG/Wellness"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Guitar/Keyboard/Vocal"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Chemistry"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "E-portfolio"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LA\nFrench MYP 4\nHindi R6"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "LL"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "INS"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Chemistry"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Ext Maths"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "INS"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LL"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Biology"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Physics"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Karate/Silambam"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "E-portfolio"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LIBRARY"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "LA\nFrench MYP 4\nHindi R6"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Biology"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "CLUB"
+      }
+    }
+  },
+  "MYP 5": {
+    "MON": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Robotics/Chess/Coding"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LL"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "LA\nFrench MYP 5\nHindi R6"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Biology"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Physics"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "Chemistry"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "LL"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "LA\nFrench MYP 5\nHindi R6"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Maths (STD/Ext)\nMaths Std - MYP5\nMaths Ext R6"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "E-portfolio"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "I&S"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "SDG/Wellness"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Guitar/Keyboard/Vocal"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Physics"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "Chemistry"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Biology"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "Maths (STD/Ext)\nMaths Std-MYP5\nMaths Ext R2"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "E-portfolio"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Maths (STD/Ext)\nMaths Std- MYP5\nMaths Ext R2"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Biology"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "E-portfolio"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "IDU/PP"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "LL"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "I&S"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30 -8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "Karate/Silambam"
+      },
+      "2": {
+        "time": "10:00-11:00",
+        "subject": "Chemistry"
+      },
+      "3": {
+        "time": "11:00 - 12:00",
+        "subject": "I&S"
+      },
+      "4": {
+        "time": "12:30 - 1:30",
+        "subject": "Physics"
+      },
+      "5": {
+        "time": "1:30 - 2:30",
+        "subject": "LA\nFrench MYP 5\nHindi R6"
+      },
+      "6": {
+        "time": "2:30-3:30",
+        "subject": "CLUB"
+      }
+    }
+  },
+  "DP 1": {
+    "MON": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "LA Fr/Gr(R6) /Hindi(R5)"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "BM/VA(Arts Room)"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "PHYSICS"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "CS(ICT Lab)/CHEM & BMT(Lib)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "BIO(R2)/ECO"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "ENGLISH"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "PHYSICS"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "MAA/MAI(R5)"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "BM/VA(Arts Room)"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "MAA/MAI(R5)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "BIO(Lab)/ECO"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "PHYSICS"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "CS(ICT Lab)/CHEM & BMT(R6)"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "LA Fr/Gr(R4)/Hindi (R5)"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "MAA/MAI (R2)"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "MAA/MAI (R2)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "BM/VA (Arts Room)"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "BIO(R6) /ECO"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "ENGLISH"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "CS/CHEM & BMT"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "LA Fr/Gr(R2)/Hindi(R5)"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "CS(ICT Lab)/CHEM & BMT(R2)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "TOK"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "TOK"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "ROBOTICS/CHESS"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "ENGLISH"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "PHYSICS"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "BM/VA (Arts Room)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "BIO(Lab) /ECO"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "WELLNESS/SDG/CAREER"
+      }
+    }
+  },
+  "DP 2": {
+    "MON": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "ENGLISH"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "LA Fr/Gr(R2)"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "BM/ESS(R2)/PSY(senco room)"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "PHYSICS"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "CHEM/CS"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "BIO/VA (Arts Room)"
+      }
+    },
+    "TUE": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "BIO/VA (Arts Room)"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "PHYSICS"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "CHEM/CS(ICT Lab)"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "BM/ESS(R6)/PSY(senco room)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "LA Fr/Gr(R2)"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "MAA"
+      }
+    },
+    "WED": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "BIO(Lab/class)/VA (Arts Room)"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "ENGLISH"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "WELLNESS/SDG/CAREER"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "CHEM/CS(ICT Lab)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "TOK"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "TOK"
+      }
+    },
+    "THUR": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "BIO/VA (Arts Room)"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "MAA"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "MAA"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "LA Fr/Gr(R6)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "PHYSICS"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "BM/ESS(Bio Lab)/PSY(Senco Room)"
+      }
+    },
+    "FRI": {
+      "0": {
+        "time": "8:30-8:45",
+        "subject": "HRT"
+      },
+      "1": {
+        "time": "1.8:45-9:45",
+        "subject": "ROBOTICS/CHESS"
+      },
+      "2": {
+        "time": "2. 10:00-11:00",
+        "subject": "PHYSICS"
+      },
+      "3": {
+        "time": "3. 11:00 - 12:00",
+        "subject": "BM/ESS(Bio Lab)/PSY(senco Room)"
+      },
+      "4": {
+        "time": "4. 12:00 - 1:00",
+        "subject": "CHEM/CS(ICT Lab)"
+      },
+      "5": {
+        "time": "5 1:30 - 2:30",
+        "subject": "ENGLISH"
+      },
+      "6": {
+        "time": "6 2:30-3:30",
+        "subject": "MAA"
+      }
+    }
+  }
+};
+
+</script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f3f7f3; color: #1f2d1f; }
+    header { background: #2f6b3f; color: white; padding: 18px; text-align: center; }
+    header h1 { margin: 0; font-size: 24px; }
+    header p { margin: 6px 0 0; font-size: 14px; }
+    main { max-width: 900px; margin: 18px auto; background: white; padding: 18px; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.10); }
+    label { font-weight: bold; display: block; margin-top: 12px; }
+    input, select, textarea { width: 100%; padding: 11px; margin-top: 5px; border: 1px solid #b7c7b7; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+    textarea { min-height: 80px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .subject-box { margin-top: 14px; padding: 14px; background: #e8f3e8; border-left: 5px solid #2f6b3f; border-radius: 8px; font-size: 18px; }
+    button { margin-top: 18px; padding: 13px 18px; border: 0; border-radius: 9px; font-size: 17px; cursor: pointer; font-weight: bold; }
+    .save { background: #2f6b3f; color: white; width: 100%; }
+    .clear { background: #dfe8df; color: #1f2d1f; width: 100%; }
+    .note { background: #fff8df; padding: 12px; border-radius: 8px; margin-top: 16px; font-size: 14px; }
+    .small { font-size: 13px; color: #496149; }
+    @media (max-width: 700px) { .row { grid-template-columns: 1fr; } main { margin: 10px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ELA MYP-DP Daily Log - Single File</h1>
+    <p>Session-wise class log for MYP 1 to DP 2</p>
+  </header>
+
+  <main>
+    <div class="note">
+      Teachers fill only their own session and click <b>Save Session</b>. The entry will go to the school Excel file through Power Automate once the URL is added.
+    </div>
+
+    <form id="dailyLogForm">
+      <div class="row">
+        <div>
+          <label for="date">Date</label>
+          <input type="date" id="date" required />
+        </div>
+        <div>
+          <label for="day">Day</label>
+          <select id="day" required>
+            <option value="">Select day</option>
+            <option value="MON">Monday</option>
+            <option value="TUE">Tuesday</option>
+            <option value="WED">Wednesday</option>
+            <option value="THU">Thursday</option>
+            <option value="FRI">Friday</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="grade">Grade / Section</label>
+          <select id="grade" required></select>
+        </div>
+        <div>
+          <label for="session">Session</label>
+          <select id="session" required>
+            <option value="">Select grade and day first</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="subject-box">
+        <b>Subject:</b> <span id="subjectDisplay">Select grade, day and session</span><br>
+        <span class="small"><b>Time:</b> <span id="timeDisplay">-</span></span>
+      </div>
+
+      <label for="teacher">Teacher Name</label>
+      <input type="text" id="teacher" placeholder="Enter teacher name" required />
+
+      <label for="topic">Topic / Concept taught</label>
+      <textarea id="topic" placeholder="What was taught today?" required></textarea>
+
+      <label for="classwork">Classwork / Learning engagement</label>
+      <textarea id="classwork" placeholder="Class activities, discussion, experiment, practice, group work, etc."></textarea>
+
+      <label for="homework">Homework / Assignment</label>
+      <textarea id="homework" placeholder="Enter homework or assignment. Write Nil if nothing was assigned."></textarea>
+
+      <div class="row">
+        <div>
+          <label for="dueDate">Due Date</label>
+          <input type="date" id="dueDate" />
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="Saved">Saved</option>
+            <option value="Final">Final</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="remarks">Remarks / Follow-up</label>
+      <textarea id="remarks" placeholder="Absentees, concerns, follow-up, reminders, etc."></textarea>
+
+      <button type="submit" class="save">Save Session</button>
+      <button type="button" class="clear" onclick="clearForm()">Clear Form</button>
+    </form>
+
+    <div id="message" class="note" style="display:none;"></div>
+  </main>
+
+  <script>
+    // After creating the Power Automate flow, paste its HTTP URL below between the quotes.
+    const POWER_AUTOMATE_SAVE_URL = "";
+
+    const gradeSelect = document.getElementById('grade');
+    const daySelect = document.getElementById('day');
+    const sessionSelect = document.getElementById('session');
+    const subjectDisplay = document.getElementById('subjectDisplay');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const messageBox = document.getElementById('message');
+
+    document.getElementById('date').valueAsDate = new Date();
+
+    function initGrades() {
+      gradeSelect.innerHTML = '<option value="">Select grade</option>';
+      Object.keys(sessionSubjectMap).forEach(grade => {
+        const option = document.createElement('option');
+        option.value = grade;
+        option.textContent = grade;
+        gradeSelect.appendChild(option);
+      });
+    }
+
+    function updateSessions() {
+      const grade = gradeSelect.value;
+      const day = daySelect.value;
+      sessionSelect.innerHTML = '<option value="">Select session</option>';
+      subjectDisplay.textContent = 'Select grade, day and session';
+      timeDisplay.textContent = '-';
+
+      if (!grade || !day || !sessionSubjectMap[grade] || !sessionSubjectMap[grade][day]) return;
+
+      Object.keys(sessionSubjectMap[grade][day]).forEach(sessionKey => {
+        const item = sessionSubjectMap[grade][day][sessionKey];
+        const option = document.createElement('option');
+        option.value = sessionKey;
+        option.textContent = `Session ${sessionKey} - ${item.time} - ${item.subject}`;
+        sessionSelect.appendChild(option);
+      });
+    }
+
+    function updateSubject() {
+      const grade = gradeSelect.value;
+      const day = daySelect.value;
+      const session = sessionSelect.value;
+      if (grade && day && session && sessionSubjectMap[grade]?.[day]?.[session]) {
+        const item = sessionSubjectMap[grade][day][session];
+        subjectDisplay.textContent = item.subject;
+        timeDisplay.textContent = item.time;
+      }
+    }
+
+    gradeSelect.addEventListener('change', updateSessions);
+    daySelect.addEventListener('change', updateSessions);
+    sessionSelect.addEventListener('change', updateSubject);
+
+    function showMessage(text) {
+      messageBox.style.display = 'block';
+      messageBox.textContent = text;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function clearForm() {
+      document.getElementById('dailyLogForm').reset();
+      document.getElementById('date').valueAsDate = new Date();
+      updateSessions();
+      subjectDisplay.textContent = 'Select grade, day and session';
+      timeDisplay.textContent = '-';
+      messageBox.style.display = 'none';
+    }
+
+    document.getElementById('dailyLogForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const grade = gradeSelect.value;
+      const day = daySelect.value;
+      const session = sessionSelect.value;
+      const timetableItem = sessionSubjectMap[grade]?.[day]?.[session];
+
+      const data = {
+        Date: document.getElementById('date').value,
+        Grade: grade,
+        Day: day,
+        Session: session,
+        Time: timetableItem?.time || '',
+        Subject: timetableItem?.subject || '',
+        Teacher: document.getElementById('teacher').value,
+        Topic: document.getElementById('topic').value,
+        Classwork: document.getElementById('classwork').value,
+        Homework: document.getElementById('homework').value,
+        DueDate: document.getElementById('dueDate').value,
+        Remarks: document.getElementById('remarks').value,
+        Status: document.getElementById('status').value,
+        SubmittedAt: new Date().toISOString()
+      };
+
+      if (!POWER_AUTOMATE_SAVE_URL) {
+        console.log('Daily log entry:', data);
+        showMessage('The form is ready, but the Power Automate URL has not been added yet. After adding the URL, entries will save into Excel/Teams.');
+        return;
+      }
+
+      try {
+        const response = await fetch(POWER_AUTOMATE_SAVE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          showMessage('Saved successfully. This session entry has been sent.');
+          document.getElementById('topic').value = '';
+          document.getElementById('classwork').value = '';
+          document.getElementById('homework').value = '';
+          document.getElementById('dueDate').value = '';
+          document.getElementById('remarks').value = '';
+        } else {
+          showMessage('Could not save. Please check the Power Automate flow.');
+        }
+      } catch (error) {
+        showMessage('Could not connect to Power Automate. Please check the flow URL and internet connection.');
+      }
+    });
+
+    initGrades();
+  </script>
+</body>
+</html>
