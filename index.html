@@ -1,10 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ELA MYP-DP Daily Log - Single File</title>
-  <script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MYP-DP Daily Log</title>
+<style>
+  :root { --blue:#263f8f; --border:#d5dbe6; --bg:#f6f8fb; --text:#172033; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text); }
+  .page { max-width: 980px; margin: 0 auto; padding: 18px; }
+  .card { background:white; border-radius:14px; box-shadow:0 2px 14px rgba(0,0,0,.08); padding:18px; }
+  h1 { margin:0 0 14px; font-size:28px; color:var(--blue); }
+  .top { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:18px; }
+  label { font-weight:700; display:block; margin-bottom:6px; }
+  input, select, textarea { width:100%; border:1px solid #bfc7d1; border-radius:8px; padding:10px; font-size:16px; background:white; }
+  textarea { min-height:76px; resize:vertical; }
+  table { width:100%; border-collapse:collapse; table-layout:fixed; }
+  th { background:var(--blue); color:white; text-align:left; padding:12px; font-size:16px; }
+  td { border:1px solid var(--border); padding:10px; vertical-align:top; background:white; }
+  th:nth-child(1) { width:15%; } th:nth-child(2) { width:22%; } th:nth-child(3) { width:23%; } th:nth-child(4) { width:20%; } th:nth-child(5) { width:10%; } th:nth-child(6) { width:10%; }
+  .session { font-weight:700; } .time { margin-top:6px; font-weight:400; color:#4d5867; }
+  .subject { font-weight:700; white-space:pre-wrap; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+  button { border:0; border-radius:10px; padding:12px 16px; font-size:16px; font-weight:700; cursor:pointer; }
+  .primary { background:#24713d; color:white; } .secondary { background:#e9edf5; color:#172033; } .danger { background:#ffe9e9; color:#8a1f1f; }
+  .msg { margin-top:12px; font-weight:700; }
+  @media (max-width: 760px) {
+    .page { padding:8px; } .card { padding:10px; border-radius:0; } h1 { font-size:22px; }
+    .top { grid-template-columns:1fr; } table { font-size:14px; } th,td { padding:6px; } input,select,textarea { font-size:14px; padding:8px; }
+  }
+  @media print {
+    body { background:white; } .page { max-width:none; padding:0; } .card { box-shadow:none; } .actions, .msg { display:none; }
+    input, select, textarea { border:0; padding:0; } textarea { height:auto; min-height:40px; }
+  }
+</style>
+</head>
+<body>
+<div class="page"><div class="card">
+  <h1>MYP-DP Daily Log</h1>
+  <div class="top">
+    <div><label for="logDate">Date</label><input id="logDate" type="date"></div>
+    <div><label for="grade">Grade</label><select id="grade"></select></div>
+    <div><label for="day">Day</label><select id="day"><option value="MON">Monday</option><option value="TUE">Tuesday</option><option value="WED">Wednesday</option><option value="THUR">Thursday</option><option value="FRI">Friday</option></select></div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th>Session & Time</th>
+      <th>Subject</th>
+      <th>Daily Learning Update</th>
+      <th>Homework / Assignment</th>
+      <th>Due Date</th>
+      <th>Upcoming Assessment</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <div class="actions">
+    <button class="primary" onclick="saveDraft()">Save</button>
+    <button class="secondary" onclick="loadDraft()">Recall Saved</button>
+    <button class="secondary" onclick="window.print()">Save as PDF / Print</button>
+    <button class="primary" onclick="submitFinal()">Submit Final Log</button>
+    <button class="danger" onclick="clearDraft()">Clear</button>
+  </div>
+  <div class="msg" id="msg"></div>
+</div></div>
+
+<script>
 const sessionSubjectMap = {
   "MYP 1 Omega": {
     "MON": {
@@ -1224,235 +1286,98 @@ const sessionSubjectMap = {
   }
 };
 
+// Paste your Power Automate HTTP URL between the quotes later.
+const POWER_AUTOMATE_URL = "";
+
+const gradeEl = document.getElementById('grade');
+const dayEl = document.getElementById('day');
+const dateEl = document.getElementById('logDate');
+const rowsEl = document.getElementById('rows');
+const msgEl = document.getElementById('msg');
+
+function todayISO() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function init() {
+  dateEl.value = todayISO();
+  Object.keys(sessionSubjectMap).forEach(g => {
+    const opt = document.createElement('option'); opt.value = g; opt.textContent = g; gradeEl.appendChild(opt);
+  });
+  gradeEl.addEventListener('change', renderRows);
+  dayEl.addEventListener('change', renderRows);
+  dateEl.addEventListener('change', renderRows);
+  renderRows();
+}
+
+function renderRows() {
+  const grade = gradeEl.value;
+  const day = dayEl.value;
+  const dayData = (sessionSubjectMap[grade] || {})[day] || {};
+  rowsEl.innerHTML = '';
+  Object.keys(dayData).sort((a,b)=>Number(a)-Number(b)).forEach(session => {
+    const item = dayData[session];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="session">Session ${session}</div><div class="time">${escapeHtml(item.time || '')}</div></td>
+      <td><div class="subject">${escapeHtml(item.subject || '')}</div></td>
+      <td><textarea data-field="learning" data-session="${session}"></textarea></td>
+      <td><textarea data-field="homework" data-session="${session}"></textarea></td>
+      <td><input type="date" data-field="dueDate" data-session="${session}"></td>
+      <td><textarea data-field="assessment" data-session="${session}"></textarea></td>`;
+    rowsEl.appendChild(tr);
+  });
+  loadDraft(false);
+}
+
+function storageKey() { return 'dailyLog_' + dateEl.value + '_' + gradeEl.value + '_' + dayEl.value; }
+
+function collectData() {
+  const grade = gradeEl.value, day = dayEl.value;
+  const dayData = (sessionSubjectMap[grade] || {})[day] || {};
+  const entries = Object.keys(dayData).sort((a,b)=>Number(a)-Number(b)).map(session => {
+    const get = f => document.querySelector(`[data-session="${session}"][data-field="${f}"]`)?.value || '';
+    return {
+      session: session,
+      time: dayData[session].time || '',
+      subject: dayData[session].subject || '',
+      dailyLearningUpdate: get('learning'),
+      homeworkAssignment: get('homework'),
+      dueDate: get('dueDate'),
+      upcomingAssessment: get('assessment')
+    };
+  });
+  return { date: dateEl.value, grade, day, entries };
+}
+
+function saveDraft() { localStorage.setItem(storageKey(), JSON.stringify(collectData())); msg('Saved on this device.'); }
+function loadDraft(show=true) {
+  const raw = localStorage.getItem(storageKey());
+  if (!raw) { if(show) msg('No saved log found for this date, grade and day.'); return; }
+  const data = JSON.parse(raw);
+  data.entries.forEach(e => {
+    setVal(e.session,'learning',e.dailyLearningUpdate); setVal(e.session,'homework',e.homeworkAssignment); setVal(e.session,'dueDate',e.dueDate); setVal(e.session,'assessment',e.upcomingAssessment);
+  });
+  if(show) msg('Recalled saved log.');
+}
+function clearDraft() {
+  if(confirm('Clear this date/grade/day entries from this device?')) { localStorage.removeItem(storageKey()); renderRows(); msg('Cleared.'); }
+}
+function setVal(session, field, value) { const el = document.querySelector(`[data-session="${session}"][data-field="${field}"]`); if(el) el.value = value || ''; }
+function msg(t) { msgEl.textContent = t; setTimeout(()=>{ if(msgEl.textContent===t) msgEl.textContent=''; }, 5000); }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+async function submitFinal() {
+  saveDraft();
+  const data = collectData();
+  if(!POWER_AUTOMATE_URL) { msg('Power Automate URL is not added yet. Saved only on this device.'); return; }
+  try {
+    const res = await fetch(POWER_AUTOMATE_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+    msg(res.ok ? 'Final log submitted.' : 'Could not submit. Check Power Automate.');
+  } catch(e) { msg('Could not submit. Check internet/Power Automate URL.'); }
+}
+
+init();
 </script>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f3f7f3; color: #1f2d1f; }
-    header { background: #2f6b3f; color: white; padding: 18px; text-align: center; }
-    header h1 { margin: 0; font-size: 24px; }
-    header p { margin: 6px 0 0; font-size: 14px; }
-    main { max-width: 900px; margin: 18px auto; background: white; padding: 18px; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.10); }
-    label { font-weight: bold; display: block; margin-top: 12px; }
-    input, select, textarea { width: 100%; padding: 11px; margin-top: 5px; border: 1px solid #b7c7b7; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-    textarea { min-height: 80px; resize: vertical; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .subject-box { margin-top: 14px; padding: 14px; background: #e8f3e8; border-left: 5px solid #2f6b3f; border-radius: 8px; font-size: 18px; }
-    button { margin-top: 18px; padding: 13px 18px; border: 0; border-radius: 9px; font-size: 17px; cursor: pointer; font-weight: bold; }
-    .save { background: #2f6b3f; color: white; width: 100%; }
-    .clear { background: #dfe8df; color: #1f2d1f; width: 100%; }
-    .note { background: #fff8df; padding: 12px; border-radius: 8px; margin-top: 16px; font-size: 14px; }
-    .small { font-size: 13px; color: #496149; }
-    @media (max-width: 700px) { .row { grid-template-columns: 1fr; } main { margin: 10px; } }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>ELA MYP-DP Daily Log - Single File</h1>
-    <p>Session-wise class log for MYP 1 to DP 2</p>
-  </header>
-
-  <main>
-    <div class="note">
-      Teachers fill only their own session and click <b>Save Session</b>. The entry will go to the school Excel file through Power Automate once the URL is added.
-    </div>
-
-    <form id="dailyLogForm">
-      <div class="row">
-        <div>
-          <label for="date">Date</label>
-          <input type="date" id="date" required />
-        </div>
-        <div>
-          <label for="day">Day</label>
-          <select id="day" required>
-            <option value="">Select day</option>
-            <option value="MON">Monday</option>
-            <option value="TUE">Tuesday</option>
-            <option value="WED">Wednesday</option>
-            <option value="THU">Thursday</option>
-            <option value="FRI">Friday</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label for="grade">Grade / Section</label>
-          <select id="grade" required></select>
-        </div>
-        <div>
-          <label for="session">Session</label>
-          <select id="session" required>
-            <option value="">Select grade and day first</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="subject-box">
-        <b>Subject:</b> <span id="subjectDisplay">Select grade, day and session</span><br>
-        <span class="small"><b>Time:</b> <span id="timeDisplay">-</span></span>
-      </div>
-
-      <label for="teacher">Teacher Name</label>
-      <input type="text" id="teacher" placeholder="Enter teacher name" required />
-
-      <label for="topic">Topic / Concept taught</label>
-      <textarea id="topic" placeholder="What was taught today?" required></textarea>
-
-      <label for="classwork">Classwork / Learning engagement</label>
-      <textarea id="classwork" placeholder="Class activities, discussion, experiment, practice, group work, etc."></textarea>
-
-      <label for="homework">Homework / Assignment</label>
-      <textarea id="homework" placeholder="Enter homework or assignment. Write Nil if nothing was assigned."></textarea>
-
-      <div class="row">
-        <div>
-          <label for="dueDate">Due Date</label>
-          <input type="date" id="dueDate" />
-        </div>
-        <div>
-          <label for="status">Status</label>
-          <select id="status">
-            <option value="Saved">Saved</option>
-            <option value="Final">Final</option>
-          </select>
-        </div>
-      </div>
-
-      <label for="remarks">Remarks / Follow-up</label>
-      <textarea id="remarks" placeholder="Absentees, concerns, follow-up, reminders, etc."></textarea>
-
-      <button type="submit" class="save">Save Session</button>
-      <button type="button" class="clear" onclick="clearForm()">Clear Form</button>
-    </form>
-
-    <div id="message" class="note" style="display:none;"></div>
-  </main>
-
-  <script>
-    // After creating the Power Automate flow, paste its HTTP URL below between the quotes.
-    const POWER_AUTOMATE_SAVE_URL = "";
-
-    const gradeSelect = document.getElementById('grade');
-    const daySelect = document.getElementById('day');
-    const sessionSelect = document.getElementById('session');
-    const subjectDisplay = document.getElementById('subjectDisplay');
-    const timeDisplay = document.getElementById('timeDisplay');
-    const messageBox = document.getElementById('message');
-
-    document.getElementById('date').valueAsDate = new Date();
-
-    function initGrades() {
-      gradeSelect.innerHTML = '<option value="">Select grade</option>';
-      Object.keys(sessionSubjectMap).forEach(grade => {
-        const option = document.createElement('option');
-        option.value = grade;
-        option.textContent = grade;
-        gradeSelect.appendChild(option);
-      });
-    }
-
-    function updateSessions() {
-      const grade = gradeSelect.value;
-      const day = daySelect.value;
-      sessionSelect.innerHTML = '<option value="">Select session</option>';
-      subjectDisplay.textContent = 'Select grade, day and session';
-      timeDisplay.textContent = '-';
-
-      if (!grade || !day || !sessionSubjectMap[grade] || !sessionSubjectMap[grade][day]) return;
-
-      Object.keys(sessionSubjectMap[grade][day]).forEach(sessionKey => {
-        const item = sessionSubjectMap[grade][day][sessionKey];
-        const option = document.createElement('option');
-        option.value = sessionKey;
-        option.textContent = `Session ${sessionKey} - ${item.time} - ${item.subject}`;
-        sessionSelect.appendChild(option);
-      });
-    }
-
-    function updateSubject() {
-      const grade = gradeSelect.value;
-      const day = daySelect.value;
-      const session = sessionSelect.value;
-      if (grade && day && session && sessionSubjectMap[grade]?.[day]?.[session]) {
-        const item = sessionSubjectMap[grade][day][session];
-        subjectDisplay.textContent = item.subject;
-        timeDisplay.textContent = item.time;
-      }
-    }
-
-    gradeSelect.addEventListener('change', updateSessions);
-    daySelect.addEventListener('change', updateSessions);
-    sessionSelect.addEventListener('change', updateSubject);
-
-    function showMessage(text) {
-      messageBox.style.display = 'block';
-      messageBox.textContent = text;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-
-    function clearForm() {
-      document.getElementById('dailyLogForm').reset();
-      document.getElementById('date').valueAsDate = new Date();
-      updateSessions();
-      subjectDisplay.textContent = 'Select grade, day and session';
-      timeDisplay.textContent = '-';
-      messageBox.style.display = 'none';
-    }
-
-    document.getElementById('dailyLogForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const grade = gradeSelect.value;
-      const day = daySelect.value;
-      const session = sessionSelect.value;
-      const timetableItem = sessionSubjectMap[grade]?.[day]?.[session];
-
-      const data = {
-        Date: document.getElementById('date').value,
-        Grade: grade,
-        Day: day,
-        Session: session,
-        Time: timetableItem?.time || '',
-        Subject: timetableItem?.subject || '',
-        Teacher: document.getElementById('teacher').value,
-        Topic: document.getElementById('topic').value,
-        Classwork: document.getElementById('classwork').value,
-        Homework: document.getElementById('homework').value,
-        DueDate: document.getElementById('dueDate').value,
-        Remarks: document.getElementById('remarks').value,
-        Status: document.getElementById('status').value,
-        SubmittedAt: new Date().toISOString()
-      };
-
-      if (!POWER_AUTOMATE_SAVE_URL) {
-        console.log('Daily log entry:', data);
-        showMessage('The form is ready, but the Power Automate URL has not been added yet. After adding the URL, entries will save into Excel/Teams.');
-        return;
-      }
-
-      try {
-        const response = await fetch(POWER_AUTOMATE_SAVE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          showMessage('Saved successfully. This session entry has been sent.');
-          document.getElementById('topic').value = '';
-          document.getElementById('classwork').value = '';
-          document.getElementById('homework').value = '';
-          document.getElementById('dueDate').value = '';
-          document.getElementById('remarks').value = '';
-        } else {
-          showMessage('Could not save. Please check the Power Automate flow.');
-        }
-      } catch (error) {
-        showMessage('Could not connect to Power Automate. Please check the flow URL and internet connection.');
-      }
-    });
-
-    initGrades();
-  </script>
-</body>
-</html>
+</body></html>
